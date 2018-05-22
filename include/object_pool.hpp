@@ -34,8 +34,6 @@ public:
   };
 
 private:
-  T m_object;
-
   std::queue<T*> m_available;
 
 protected:
@@ -49,6 +47,8 @@ public:
   static object_pool<T,N>& instance();
 
   pooled_ptr<T> acquire();
+  static pooled_ptr<T> acquire_ex();
+
   void release(T* ptr);
 };
 
@@ -64,9 +64,17 @@ object_pool<T,N>::pooled_ptr<T> object_pool<T,N>::acquire()
 {
   if (m_available.empty())
     return object_pool<T,N>::pooled_ptr<T>(this, nullptr);
+
   auto o = m_available.front();
   m_available.pop();
+  
   return object_pool<T,N>::pooled_ptr<T>(this, o);
+}
+
+template<typename T, unsigned int N>
+object_pool<T,N>::pooled_ptr<T> object_pool<T,N>::acquire_ex()
+{
+  return instance().acquire();
 }
 
 template<typename T, unsigned int N>
