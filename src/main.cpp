@@ -64,6 +64,7 @@ struct string_adapter : public very_bad_string_builder
   }
 };
 
+// 3 objects in pool
 typedef object_pool<string_adapter, 3> StringPool;
 
 int main()
@@ -104,6 +105,7 @@ int main()
   json        .attach(content_watcher);
 
   // 3 builders in pool
+  // automatic release to pool when smart pointer gets out of scope
   {
     auto builder1 = StringPool::instance().acquire();
     my_settings   .change_content(builder1->append("NO_SETTINGS=TRUE;")->eval());
