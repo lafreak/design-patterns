@@ -6,7 +6,22 @@
 #include <iterator.hpp>     // iterator
 #include <composite.hpp>    // iterator+composite
 
-#include <third_party.hpp>
+#include <third_party.hpp>  // adapter+builder
+
+/*
+  Creational Patterns:
+  - Singleton
+  - Object Pool
+  - Builder
+
+  Behavioral Patterns
+  - Observer
+  - Iterator
+
+  Structural Patterns
+  - Adapter
+  - Composite
+*/
 
 struct folder : public composite
 {
