@@ -12,6 +12,7 @@ set(SOURCES
   src/observer.cpp
   src/iterator.cpp
   src/composite.cpp
+  src/third_party.cpp
   src/main.cpp
   )
 

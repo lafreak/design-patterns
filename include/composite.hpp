@@ -4,18 +4,32 @@
 
 struct component
 {
+  constexpr static char LEAF=0;
+  constexpr static char COMPOSITE=1;
+
+  char m_type;
+  
   virtual void evaluate(unsigned int depth=0) = 0;
 };
 
-struct composite : public component
+struct leaf : public component
 {
-  struct container : iterable<component> {} m_components;
+  leaf()
+  {
+    m_type = LEAF;
+  }
+};
 
-  void push(component* comp) { m_components.push(comp); }
+struct composite : public component, public iterable<component>
+{
+  composite()
+  {
+    m_type = COMPOSITE;
+  }
 
   void evaluate(unsigned int depth=0) override
   {
-    for (auto it = m_components.begin(); it != m_components.end(); ++it)
+    for (auto it = begin(); it != end(); ++it)
       it->evaluate(depth+1);
   }
 
