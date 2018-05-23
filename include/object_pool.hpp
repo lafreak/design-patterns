@@ -41,7 +41,12 @@ protected:
     for (unsigned int i = 0; i < N; i++)
       m_available.push(new T);
   }
-  ~object_pool() {}
+  ~object_pool() {
+    while (!m_available.empty()) {
+      delete m_available.front();
+      m_available.pop();
+    }
+  }
 
 public:
   static object_pool<T,N>& instance();

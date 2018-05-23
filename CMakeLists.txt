@@ -9,6 +9,9 @@ include_directories(include)
 
 set(SOURCES
   src/object_pool.cpp
+  src/observer.cpp
+  src/iterator.cpp
+  src/composite.cpp
   src/main.cpp
   )
 
